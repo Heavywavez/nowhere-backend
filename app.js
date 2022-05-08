@@ -46,9 +46,11 @@ app.use(cookieParser());
 app.use(logger('dev'));
 
 const index = require('./routes/index');
-const auth = require('./routes/auth');
+const auth = require('./routes/authRoutes')
+const users = require('./routes/usersRoutes')
 app.use('/', index);
-app.use('/', auth);
+app.use('/auth', auth)
+app.use('/users', users)
 
 // Uncomment this line for productio
 // app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));

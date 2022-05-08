@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.get('/', (req, res, next) => {
+router.get('/health', (req, res, next) => {
   res.status(200).json({ msg: 'NoWhere Server' });
 });
 
