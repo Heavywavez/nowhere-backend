@@ -48,9 +48,11 @@ app.use(logger('dev'));
 const index = require('./routes/index');
 const auth = require('./routes/authRoutes')
 const users = require('./routes/usersRoutes')
+const offices = require('./routes/officesRoutes')
 app.use('/', index);
 app.use('/auth', auth)
 app.use('/users', users)
+app.use('/offices', offices)
 
 // Uncomment this line for productio
 // app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));
