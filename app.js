@@ -46,13 +46,23 @@ app.use(cookieParser());
 app.use(logger('dev'));
 
 const index = require('./routes/index');
-const auth = require('./routes/authRoutes')
-const users = require('./routes/usersRoutes')
-const offices = require('./routes/officesRoutes')
+const auth = require('./routes/authRoutes');
+const users = require('./routes/usersRoutes');
+const offices = require('./routes/officesRoutes');
+const boardrooms = require('./routes/boardroomsRoutes');
+const clients = require('./routes/clientsRoutes');
+const coworks = requiere('./routes/coworksRoutes')
+
+const { ClientRequest } = require('http');
+
 app.use('/', index);
-app.use('/auth', auth)
-app.use('/users', users)
-app.use('/offices', offices)
+app.use('/auth', auth);
+app.use('/users', users);
+app.use('/offices', offices);
+app.use('/boardroom', boardrooms);
+app.use('/client', clients);
+app.use('/cowork', coworks)
+
 
 // Uncomment this line for productio
 // app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));

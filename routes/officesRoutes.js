@@ -1,10 +1,10 @@
-const { createOffice, getOffice, updateOffice, deleteOffice } = require('../controllers/officesControllers');
+const { getOffices, getOffice, updateOffice, deleteOffice } = require('../controllers/officesControllers');
 const router = require('express').Router();
 
-router.post('/', createOffice)
-router.get('/:office', getOffice)
-router.patch('/:office', updateOffice)
-router.delete('/:office', deleteOffice)
+router.get('/', getOffices)
+router.get('./:officeId', getOffice)
+router.patch('./:officeId', updateOffice)
+router.delete('./:officeId', deleteOffice)
 
 
 module.exports = router
