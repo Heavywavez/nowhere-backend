@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const CoworkSchema = new Schema(
+const coworkSchema = new Schema(
     {
       nameRoom: String,
       size: Number,

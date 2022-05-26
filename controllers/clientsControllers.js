@@ -1,5 +1,11 @@
 const Client = require('../models/Client')
 
+exports.createClients = (req, res) => {
+    Client.create({...req.body})
+    .then(client => res.status(200).json({client}))
+    .catch(err => res.status(500).json({err}))
+}
+
 exports.getClients = (req,res) => {
     Client.find()
     .then(clients => res.status(201).json({clients}))

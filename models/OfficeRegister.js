@@ -2,14 +2,16 @@ const { Schema, model } = require('mongoose');
 
 const officeSchema = new Schema(
     {
-      nameOffice: String,
-      size: Number,
+      officeId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Office'
+      },
       userName: String,
-      hourCost: Number,
-      monthCost: Number,
+      totalCost: Number,
       createdBy: String,
       updatedBy: String,
-      extraBoardRoomHourCost: Number
+      startDate: Date,
+      endDate: Date
     },
     {
       timestamps: true,

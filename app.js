@@ -51,7 +51,7 @@ const users = require('./routes/usersRoutes');
 const offices = require('./routes/officesRoutes');
 const boardrooms = require('./routes/boardroomsRoutes');
 const clients = require('./routes/clientsRoutes');
-const coworks = requiere('./routes/coworksRoutes')
+const coworks = require('./routes/coworksRoutes')
 
 const { ClientRequest } = require('http');
 

@@ -1,12 +1,5 @@
-const Boardroom = require('../models/Boardroom')
+const Boardroom = require('../models/BoardroomRegister')
 
-
-
-exports.createBoardrooms = (req,res) => {
-    Boardroom.create({...req.body})
-    .then(boardroom => res.status(200).json({boardroom}))
-    .catch(err => res.status(500).json({err}))
-}
 
 exports.getBoardrooms = (req, res) => {
     const {boardroomId} = req.params

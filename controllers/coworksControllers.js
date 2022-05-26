@@ -1,8 +1,15 @@
 const Cowork = require('../models/Cowork')
 
-exports.createCowork = (req,res) => {
+exports.createCoworks = (req,res) => {
     Cowork.create({...req.body})
     .then(cowork => res.status(200).json({cowork}))
+    .catch(err => res.status(500).json({err}))
+}
+
+exports.getCoworks = (req, res) => {
+    const {coworkId} = req.params
+    Cowork.findById(coworkId)
+    .then(cowork => res.status(201).json({cowork}))
     .catch(err => res.status(500).json({err}))
 }
 
