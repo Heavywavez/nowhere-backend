@@ -33,5 +33,5 @@ exports.loggedUser = (req, res, next) => {
 exports.logout = (req, res, next) =>{
     res.clearCookie('headload')
     res.clearCookie('signature')
-    res.status(200).json({msg: 'saliste chido'})
+    res.status(200).json({msg: 'Unauthorized'})
 }
