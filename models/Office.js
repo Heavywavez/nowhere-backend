@@ -9,7 +9,7 @@ const officeSchema = new Schema(
       monthCost: Number,
       createdBy: String,
       updatedBy: String,
-      extraBoardRoomHourCost: Number
+      extraHourCost: Number
     },
     {
       timestamps: true,

@@ -10,9 +10,8 @@ exports.createOffices = (req, res) => {
 }
 
 exports.getOffices = (req, res) => {
-    const {officeId} = req.params
-    Office.findById(officeId)
-    .then(office => res.status(201).json({office}))
+    Office.find()
+    .then(offices => res.status(201).json({offices}))
     .catch(err => res.status(500).json({err}))
 }
 

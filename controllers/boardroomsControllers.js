@@ -8,10 +8,9 @@ exports.createBoardrooms = (req,res) => {
     .catch(err => res.status(500).json({err}))
 }
 
-exports.getBoardrooms = (req, res) => {
-    const {boardroomId} = req.params
-    Boardroom.findById(boardroomId)
-    .then(boardroom => res.status(201).json({boardroom}))
+exports.getBoardrooms = async (req, res) => {
+    Boardroom.find()
+    .then(boardrooms => res.status(201).json({boardrooms}))
     .catch(err => res.status(500).json({err}))
 }
 

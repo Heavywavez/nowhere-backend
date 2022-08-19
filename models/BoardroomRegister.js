@@ -7,10 +7,10 @@ const boardroomSchema = new Schema(
           ref: 'Boardroom'
       },
       userName: String,
+      userType: String,
       totalCost: Number,
       createdBy: String,
       updatedBy: String,
-      extraBoardRoomHour: Number,
       startDate: Date,
       endDate: Date
     },
@@ -20,4 +20,4 @@ const boardroomSchema = new Schema(
     }
   );
   
-  module.exports = model('Boardroom', boardroomSchema);
+  module.exports = model('BoardroomRegister', boardroomSchema);

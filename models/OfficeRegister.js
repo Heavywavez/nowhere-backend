@@ -7,6 +7,7 @@ const officeSchema = new Schema(
           ref: 'Office'
       },
       userName: String,
+      rentType: String,
       totalCost: Number,
       createdBy: String,
       updatedBy: String,
@@ -19,4 +20,4 @@ const officeSchema = new Schema(
     }
   );
   
-  module.exports = model('Office', officeSchema);
+  module.exports = model('OfficeRegister', officeSchema);

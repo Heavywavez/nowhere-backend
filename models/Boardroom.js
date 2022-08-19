@@ -4,21 +4,14 @@ const boardroomSchema = new Schema(
     {
       nameBoardroom: String,
       size: Number,
-      startDate: Date,
-      endDate: Date, 
-      userName: String,
-      unitCost: Number,
-      totalCost: Number,
+      hourCostExt: Number,
+      hourCostInt: Number,
+      fiveHourCostExt: Number,
+      fiveHourCostInt: Number,
+      tenHourCostExt: Number,
+      tenHourCostInt: Number,
       createdBy: String,
-      updatedBy: String,
-      typeUser: {
-        type: String,
-        enum: ["Internal", "External"],
-        default: "External",
-        required: true
-      },
-     extraHour: Number
-     
+      updatedBy: String,     
     },
     {
       timestamps: true,
