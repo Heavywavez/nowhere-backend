@@ -40,8 +40,7 @@ exports.createRegisterOffice = async (req, res) => {
             moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
         const endDate = req.body.rentType === 'mes' ? moment(new Date(req.body.endDate), 'America/Mexico_City').day(1).format('YYYY-MM-DDT00:00:00Z') :
             moment.tz(new Date(req.body.endDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
-        const createdBy = req.user.name
-        Office.create({ ...req.body, startDate, endDate, createdBy })
+        Office.create({ ...req.body, startDate, endDate })
             .then(office => res.status(200).json({ office }))
             .catch(err => res.status(500).json({ err }))
     }

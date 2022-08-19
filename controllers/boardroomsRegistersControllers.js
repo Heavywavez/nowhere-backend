@@ -56,8 +56,7 @@ exports.createRegisterBoardroom = async (req, res) => {
     } else {
         const startDate = moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
         const endDate = moment.tz(new Date(req.body.endDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
-        const createdBy = req.user.name
-        Boardroom.create({ ...req.body, startDate, endDate, createdBy })
+        Boardroom.create({ ...req.body, startDate, endDate })
             .then(boardroom => res.status(200).json({ boardroom }))
             .catch(err => res.status(500).json({ err }))
     }
