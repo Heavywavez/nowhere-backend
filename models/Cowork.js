@@ -4,8 +4,7 @@ const coworkSchema = new Schema(
     {
       nameRoom: String,
       size: Number,
-      currentUsers: String,
-      lastDateReserver: Date, 
+      hourCost: Number,
       createdBy: String,
       updatedBy: String,
     },

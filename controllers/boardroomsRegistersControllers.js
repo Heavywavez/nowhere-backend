@@ -56,16 +56,19 @@ exports.createRegisterBoardroom = async (req, res) => {
     } else {
         const startDate = moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
         const endDate = moment.tz(new Date(req.body.endDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
-        Boardroom.create({ ...req.body, startDate, endDate })
+        req.body.startDate = startDate
+        req.body.endDate = endDate
+        Boardroom.create({ ...req.body })
             .then(boardroom => res.status(200).json({ boardroom }))
-            .catch(err => res.status(500).json({ err }))
+            .catch(err => {
+                res.status(500).json({ err })
+            })
     }
 
 }
 
 exports.getBoardrooms = async (req, res) => {
-    const registers = await Boardroom.find().populate('boardroomId')
-    console.log('re', registers)
+    const registers = await Boardroom.find().populate('boardroomId').populate('customerId')
     const response = registers.map(register => {
         const searchStart =  moment(new Date(register.startDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
         const searchEnd = moment(new Date(register.endDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
@@ -74,6 +77,22 @@ exports.getBoardrooms = async (req, res) => {
         return register
     })
     res.status(200).json({ registers: response})
+}
+
+exports.getRegisterByDay = async (req, res) => {
+    const searchStart =  moment(new Date(req.params.date)).add(5, 'hours').format('YYYY-MM-DDT00:00:00Z')
+    const searchEnd =  moment(new Date(req.params.date)).add(5, 'hours').format('YYYY-MM-DDT23:59:59Z')
+
+    Boardroom.find({
+        $and: [{
+            $or: [
+                {$or: [{ startDate: { $gt: new Date(searchStart), $lt: new Date(searchEnd) } }]},
+                {$or: [{ endDate: { $gt: new Date(searchStart), $lt: new Date(searchEnd) } }]}
+            ]
+        }]
+    }).populate('boardroomId').populate('customerId').sort('startDate')
+    .then(boardrooms => res.status(200).json({ boardrooms }))
+    .catch(err => console.log(err))
 }
 
 exports.getBoardroom = (req,res) => {

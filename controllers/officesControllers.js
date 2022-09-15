@@ -2,7 +2,6 @@ const Office = require('../models/Office')
 
 
 exports.createOffices = (req, res) => {
-    //TODO investigar como validar que no exista un registro previo
     
     Office.create({...req.body})
     .then(office => res.status(200).json({office}))

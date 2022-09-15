@@ -1,25 +1,24 @@
 const { Schema, model } = require('mongoose');
 
-const officeSchema = new Schema(
+const coworkSchema = new Schema(
     {
-      officeId: {
+      coworkId: {
           type: Schema.Types.ObjectId,
-          ref: 'Office'
+          ref: 'Cowork'
       },
       customerId: {
         type: Schema.Types.ObjectId,
         ref: 'Customer'
       },
-      rentType: String,
       totalCost: Number,
       createdBy: String,
       updatedBy: String,
       startDate: Date,
       endDate: Date,
-      datesReserved: [String],
+      isActive: Boolean,
       type: {
         type: String,
-        default: "Oficinas",
+        default: "Cowork",
       }
     },
     {
@@ -28,4 +27,4 @@ const officeSchema = new Schema(
     }
   );
   
-  module.exports = model('OfficeRegister', officeSchema);
+  module.exports = model('CoworkRegister', coworkSchema);

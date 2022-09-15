@@ -7,16 +7,15 @@ exports.createCoworks = (req,res) => {
 }
 
 exports.getCoworks = (req, res) => {
-    const {coworkId} = req.params
-    Cowork.findById(coworkId)
-    .then(cowork => res.status(201).json({cowork}))
+     Cowork.find()
+    .then(coworks => res.status(201).json({coworks}))
     .catch(err => res.status(500).json({err}))
 }
 
 exports.getCowork = (req,res) => {
     const {coworkId} = req.params
-    Cowork.findById ({name: nameCowork})
-    .then(cowork => res.status(200).json({coworkId}))
+    Cowork.findById (coworkId)
+    .then(cowork => res.status(200).json({cowork}))
     .catch(err => res.status(500).json({err}))
 }
 

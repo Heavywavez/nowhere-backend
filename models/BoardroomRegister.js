@@ -6,13 +6,21 @@ const boardroomSchema = new Schema(
           type: Schema.Types.ObjectId,
           ref: 'Boardroom'
       },
-      userName: String,
+      customerId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Customer'
+      },
       userType: String,
       totalCost: Number,
       createdBy: String,
       updatedBy: String,
       startDate: Date,
-      endDate: Date
+      dateReserved: Date,
+      endDate: Date,
+      type: {
+        type: String,
+        default: "Sala de Juntas",
+      }
     },
     {
       timestamps: true,

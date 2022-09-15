@@ -9,6 +9,7 @@ const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('./config/passport');
+const scheduledFunctions = require('./scheduledFunctions');
 
 const mongoURI = process.env.DB ? process.env.DB : ''
 
@@ -53,12 +54,16 @@ const users = require('./routes/usersRoutes');
 const offices = require('./routes/officesRoutes');
 const boardrooms = require('./routes/boardroomsRoutes');
 const clients = require('./routes/clientsRoutes');
-const coworks = require('./routes/coworksRoutes')
+const coworks = require('./routes/coworkRoutes')
 const officesRegister = require('./routes/officesRegistersRoutes')
 const boardRoomsRegister = require('./routes/boardroomRegistersRoutes')
+const customers = require('./routes/customerRoutes')
+const coworkRegister = require('./routes/coworkRegistersRoutes')
+const dashboard = require('./routes/dashboardRoutes')
 
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/dashboard', dashboard)
 app.use('/users', users);
 app.use('/offices', offices);
 app.use('/offices-register', officesRegister)
@@ -66,7 +71,11 @@ app.use('/boardrooms', boardrooms);
 app.use('/boardrooms-register', boardRoomsRegister);
 app.use('/client', clients);
 app.use('/cowork', coworks)
+app.use('/customers', customers)
+app.use('/cowork-register', coworkRegister)
 
+
+scheduledFunctions.initScheduledJobs();
 
 // Uncomment this line for productio
 // app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));
