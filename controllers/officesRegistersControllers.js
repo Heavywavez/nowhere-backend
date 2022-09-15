@@ -89,7 +89,7 @@ exports.updateOffice = (req, res) => {
 
 exports.deleteOffice = (req, res) => {
     const { officeId } = req.params
-    Office.findByIdAndDelate(officeId)
+    Office.findByIdAndDelete(officeId)
         .then(office => res.status(200).json({ msg: "Office unreserver" }))
         .catch(err => res.status(500).json({ err }))
 }
