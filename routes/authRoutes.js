@@ -5,7 +5,7 @@ const { signUp, login, loggedUser, logout } = require('../controllers/authContro
 
 router.post('/signup', signUp)
 router.post('/login', passport.authenticate('local'), login)
-router.get('/logged', verifyToken, loggedUser)
+router.get('/logged/:token', verifyToken, loggedUser)
 router.get('/logout', logout)
 
 

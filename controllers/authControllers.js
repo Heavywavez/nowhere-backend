@@ -10,19 +10,12 @@ exports.signUp = (req, res) => {
 exports.login = (req, res, next) => {
     const {user} = req
     const [header, payload, signature] = createToken(user)
-
-    res.cookie('headload', `${header}.${payload}`, {
-        maxAge: 1000 * 60 * 30,
-        httpOnly: true,
-        sameSite: true
-     })
-
-    res.cookie('signature', signature, {
-        httpOnly: true,
-        sameSite: true,
-    })
-
-    res.status(200).json({user})
+    const accessToken = `${header}.${payload}.${signature}`
+    const newUser = {
+        ...user._doc,
+        accessToken
+    }
+    res.status(200).json({user: newUser})
 }
 
 exports.loggedUser = (req, res, next) => {
