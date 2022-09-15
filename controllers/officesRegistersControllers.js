@@ -60,7 +60,7 @@ exports.createRegisterOffice = async (req, res) => {
             moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
         const endDate = req.body.rentType === 'mes' ? moment.tz(new Date(req.body.endDate), 'America/Mexico_City').add(1, 'day').format('YYYY-MM-DDT00:00:00Z') :
             moment.tz(new Date(req.body.endDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
-
+        console.log('startDate', startDate)
         await Customer.findByIdAndUpdate(customerId, { isActive: true, rentType }, { new: true }).catch(err => console.log('err', err))
         req.body.startDate = startDate
         req.body.endDate = endDate
