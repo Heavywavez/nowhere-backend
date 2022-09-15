@@ -56,10 +56,10 @@ exports.createRegisterOffice = async (req, res) => {
             const date = initDate.format('DD-MM-YYYY')
             all.push(date)
           }
-        const startDate = req.body.rentType === 'mes' ? moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDT00:00:00Z') :
-            moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
-        const endDate = req.body.rentType === 'mes' ? moment.tz(new Date(req.body.endDate), 'America/Mexico_City').add(1, 'day').format('YYYY-MM-DDT00:00:00Z') :
-            moment.tz(new Date(req.body.endDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00Z')
+        const startDate = req.body.rentType === 'mes' ? moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDT00:00:00-06:00') :
+            moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00-06:00')
+        const endDate = req.body.rentType === 'mes' ? moment.tz(new Date(req.body.endDate), 'America/Mexico_City').add(1, 'day').format('YYYY-MM-DDT00:00:00-06:00') :
+            moment.tz(new Date(req.body.endDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00-06:00')
         console.log('startDate', startDate)
         await Customer.findByIdAndUpdate(customerId, { isActive: true, rentType }, { new: true }).catch(err => console.log('err', err))
         req.body.startDate = startDate
