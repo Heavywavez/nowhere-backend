@@ -15,6 +15,9 @@ const customerSchema = new Schema(
         type: Boolean,
         default: false,
     },
+    rfc: String,
+    fiscalAddress: String,
+    companyName: String,
     createdBy: String,
     updatedBy: String
   },

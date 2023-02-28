@@ -5,7 +5,7 @@ const Customer = require('../models/Customer')
 exports.getOffices = async (req, res) => {
     const registers = await Office.find().populate('officeId').populate('customerId')
     const response = registers.map(register => {
-        const searchStart = register.rentType === 'mes' ? moment(new Date(register.startDate)).format('YYYY-MM-DDT00:00:00Z') : moment(new Date(register.startDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
+        const searchStart = register.rentType === 'mes' ? moment(new Date(register.startDate)).subtract(1, 'days').format('YYYY-MM-DDT00:00:00Z') : moment(new Date(register.startDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
         const searchEnd = register.rentType === 'mes' ? moment(new Date(register.endDate)).subtract(1, 'days').format('YYYY-MM-DDT00:00:00Z') : moment(new Date(register.endDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
         register.startDate = searchStart
         register.endDate = searchEnd
@@ -16,7 +16,10 @@ exports.getOffices = async (req, res) => {
 
 exports.getRegisterByDay = async (req, res) => {
     Office.find({datesReserved: {$eq: req.params.date}}).populate('officeId').populate('customerId').sort('startDate')
-    .then(offices => res.status(200).json({ offices }))
+    .then(offices => {
+        console.log('offices', offices)
+        res.status(200).json({ offices })
+    })
     .catch(err => console.log(err))
 }
 
@@ -60,12 +63,10 @@ exports.createRegisterOffice = async (req, res) => {
             moment.tz(new Date(req.body.startDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00-06:00')
         const endDate = req.body.rentType === 'mes' ? moment.tz(new Date(req.body.endDate), 'America/Mexico_City').add(1, 'day').format('YYYY-MM-DDT00:00:00-06:00') :
             moment.tz(new Date(req.body.endDate), 'America/Mexico_City').format('YYYY-MM-DDTHH:mm:00-06:00')
-        console.log('startDate', startDate)
         await Customer.findByIdAndUpdate(customerId, { isActive: true, rentType }, { new: true }).catch(err => console.log('err', err))
         req.body.startDate = startDate
         req.body.endDate = endDate
         req.body.datesReserved = [...all]
-        console.log('req', req.body)
         Office.create({ ...req.body })
             .then(office => res.status(200).json({ office }))
             .catch(err => console.log('err', err))

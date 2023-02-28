@@ -8,7 +8,8 @@ const clientSchema = new Schema(
       phoneNumber: String,
       email: String, 
       rfc: String,
-      fiscalAddress: String
+      fiscalAddress: String,
+      companyName: String
     },
     {
       timestamps: true,

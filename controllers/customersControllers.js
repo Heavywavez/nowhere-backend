@@ -37,7 +37,6 @@ exports.updateCustomer = (req, res) => {
 
 exports.deleteCustomer = (req, res) => {
     const {customerId} = req.params
-    console.log('customer', customerId)
     Customer.findByIdAndDelete(customerId)
     .then(customer => res.status(200).json({msg: "Customer deleted"}))
     .catch(err => res.status(500).json({err}))

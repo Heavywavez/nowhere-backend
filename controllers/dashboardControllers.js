@@ -6,24 +6,25 @@ const { compareValues } = require('../utils')
 
 exports.getAll = async (req, res) => {
     const {date} = req.params
-    const searchStart =  moment(new Date(req.params.date)).add(5, 'hours').format('YYYY-MM-DDT00:00:00Z')
-    const searchEnd =  moment(new Date(req.params.date)).add(5, 'hours').format('YYYY-MM-DDT23:59:59Z')    
+    const searchStartCo =  moment(new Date(req.params.date)).add(1, 'day').add(5, 'hours').format('YYYY-MM-DDT00:00:00Z')
+    const searchEndCo =  moment(new Date(req.params.date)).add(1, 'day').add(5, 'hours').format('YYYY-MM-DDT23:59:59Z')
+
     const dateReverse = date.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1')
     let response = []
     const offices = await Office.find({datesReserved: {$eq: dateReverse}}).populate('officeId').populate('customerId').catch(err => res.status(500).json({err}))
     const boardrooms = await Boardroom.find({
         $and: [{
             $or: [
-                {$or: [{ startDate: { $gt: new Date(searchStart), $lt: new Date(searchEnd) } }]},
-                {$or: [{ endDate: { $gt: new Date(searchStart), $lt: new Date(searchEnd) } }]}
+                {$or: [{ startDate: { $gt: new Date(searchStartCo), $lt: new Date(searchEndCo) } }]},
+                {$or: [{ endDate: { $gt: new Date(searchStartCo), $lt: new Date(searchEndCo) } }]}
             ]
         }]
     }).populate('boardroomId').populate('customerId').catch(err => res.status(500).json({err}))
     const cowork = await Cowork.find({
         $and: [{
             $or: [
-                {$or: [{ startDate: { $gt: new Date(searchStart), $lt: new Date(searchEnd) } }]},
-                {$or: [{ endDate: { $gt: new Date(searchStart), $lt: new Date(searchEnd) } }]}
+                {$or: [{ startDate: { $gt: new Date(searchStartCo), $lt: new Date(searchEndCo) } }]},
+                {$or: [{ endDate: { $gt: new Date(searchStartCo), $lt: new Date(searchEndCo) } }]}
             ]
         }]
     }).populate('coworkId').populate('customerId').catch(err => res.status(500).json({err}))
