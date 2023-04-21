@@ -1,12 +1,17 @@
 const Customer = require('../models/Customer')
 
 
-exports.createCustomers = (req, res) => {
-    //TODO investigar como validar que no exista un registro previo
+exports.createCustomers = async (req, res) => {
+    const existCustomer = await Customer.findOne({email: req.body.email})
+
+    if (existCustomer) {
+        res.status(500).json({msg: 'El correo ya se encuentra registrado'})
+    } else{
+        Customer.create({...req.body})
+        .then(customer => res.status(200).json({customer}))
+        .catch(err => res.status(500).json({err}))
+    }
     
-    Customer.create({...req.body})
-    .then(customer => res.status(200).json({customer}))
-    .catch(err => res.status(500).json({err}))
 }
 
 exports.getCustomers = (req, res) => {
@@ -30,7 +35,7 @@ exports.getCustomer = (req, res) => {
 
 exports.updateCustomer = (req, res) => {
     const {customerId} = req.params
-    customer.findByIdAndUpdate(customerId, {...req.body}, {new: true})
+    Customer.findByIdAndUpdate(customerId, {...req.body}, {new: true})
     .then(customer => res.status(200).json({customer}))
     .catch(err => res.status(500).json({err}))
 }

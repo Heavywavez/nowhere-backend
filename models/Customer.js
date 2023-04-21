@@ -2,7 +2,10 @@ const { Schema, model } = require('mongoose');
 
 const customerSchema = new Schema(
   {
-    email: String,
+    email: {
+      type: String,
+      unique: true
+    },
     name: {
       type: String,
       minlength: 2
