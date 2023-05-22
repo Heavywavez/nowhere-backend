@@ -5,8 +5,8 @@ const Customer = require('../models/Customer')
 exports.getOffices = async (req, res) => {
     const registers = await Office.find().populate('officeId').populate('customerId')
     const response = registers.map(register => {
-        const searchStart = register.rentType === 'mes' ? moment(new Date(register.startDate)).subtract(1, 'days').format('YYYY-MM-DDT00:00:00Z') : moment(new Date(register.startDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
-        const searchEnd = register.rentType === 'mes' ? moment(new Date(register.endDate)).subtract(1, 'days').format('YYYY-MM-DDT00:00:00Z') : moment(new Date(register.endDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
+        const searchStart = register.rentType === 'mes' ? moment(new Date(register.startDate)).format('YYYY-MM-DDT00:00:00Z') : moment(new Date(register.startDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
+        const searchEnd = register.rentType === 'mes' ? moment(new Date(register.endDate)).format('YYYY-MM-DDT00:00:00Z') : moment(new Date(register.endDate)).subtract(5, 'hours').format('YYYY-MM-DDTHH:mm:ssZ')
         register.startDate = searchStart
         register.endDate = searchEnd
         return register

@@ -18,7 +18,7 @@ exports.getCustomers = (req, res) => {
     Customer.find()
     .then(data=> {
         const customers = data.map(e => {
-            e.name = `${e.name} ${e.lastName} ${e.familyName}`
+            e.name = `${e.name} ${e.lastName ? e.lastName : ''} ${e.familyName ? e.familyName : ''}`
             return e
         })
         res.status(201).json({customers})
