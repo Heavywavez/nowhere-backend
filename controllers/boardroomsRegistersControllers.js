@@ -80,8 +80,9 @@ exports.getBoardrooms = async (req, res) => {
 }
 
 exports.getRegisterByDay = async (req, res) => {
-    const searchStart =  moment(new Date(req.params.date)).add(1,'day').add(5, 'hours').format('YYYY-MM-DDT00:00:00Z')
-    const searchEnd =  moment(new Date(req.params.date)).add(1,'day').add(5, 'hours').format('YYYY-MM-DDT23:59:59Z')
+    console.log('req', req.params)
+    const searchStart =  moment(new Date(req.params.date)).add(5, 'hours').format('YYYY-MM-DDT00:00:00Z')
+    const searchEnd =  moment(new Date(req.params.date)).add(5, 'hours').format('YYYY-MM-DDT23:59:59Z')
 
     Boardroom.find({
         $and: [{

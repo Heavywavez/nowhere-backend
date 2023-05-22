@@ -17,7 +17,6 @@ exports.getOffices = async (req, res) => {
 exports.getRegisterByDay = async (req, res) => {
     Office.find({datesReserved: {$eq: req.params.date}}).populate('officeId').populate('customerId').sort('startDate')
     .then(offices => {
-        console.log('offices', offices)
         res.status(200).json({ offices })
     })
     .catch(err => console.log(err))
