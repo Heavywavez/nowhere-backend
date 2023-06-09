@@ -19,6 +19,9 @@ exports.login = (req, res, next) => {
 }
 
 exports.loggedUser = (req, res, next) => {
+    if (!req.params.token) {
+        res.status(401).json({msg: 'Unauthorized'})
+    }
     const {user} = req
     res.status(200).json({user})
 }
